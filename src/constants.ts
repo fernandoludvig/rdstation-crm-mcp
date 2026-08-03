@@ -1,3 +1,5 @@
+import { createRequire } from "node:module";
+
 export const API_BASE_URL = "https://crm.rdstation.com/api/v1";
 
 /** Maximum characters returned by any tool before truncation kicks in. */
@@ -11,4 +13,9 @@ export const MAX_LIMIT = 200;
 export const MAX_AGGREGATION_PAGES = 5;
 
 export const SERVER_NAME = "rdstation-crm-mcp";
-export const SERVER_VERSION = "0.1.0";
+
+// Read the version from package.json so it can never drift from the published
+// package. Works from src/ (tsx, vitest) and from the bundled dist/index.js,
+// since both sit one level below the package root.
+const pkg = createRequire(import.meta.url)("../package.json") as { version: string };
+export const SERVER_VERSION: string = pkg.version;

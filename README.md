@@ -8,6 +8,8 @@ An open-source **[MCP](https://modelcontextprotocol.io) server for [RD Station C
 
 > "How's my sales pipeline this month?" → stage-by-stage totals, win rate, and the deals going stale.
 
+![Demo: connecting to the server and running rdcrm_pipeline_overview against a real RD Station CRM account](docs/demo.gif)
+
 ## Why
 
 RD Station CRM is huge in the LatAm market, but had no open-source MCP server. This project connects it to the MCP ecosystem so AI agents can work your pipeline: qualifying leads, moving deals, scheduling follow-ups, and answering questions about your sales data in natural language.

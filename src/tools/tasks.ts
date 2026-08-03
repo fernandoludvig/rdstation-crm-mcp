@@ -158,7 +158,7 @@ Use when: "what are my pending tasks?", "overdue follow-ups this week".`,
     "rdcrm_create_task",
     {
       title: "Create RD Station CRM Task",
-      description: `Create a task on a deal: subject, type (call, email, meeting, task, lunch, visit, whatsapp), due date and time, assignee.
+      description: `Create a task on a deal: subject, type (call, email, meeting, task, lunch, visit, whatsapp), due date and time, assignee. Note: free-plan accounts only allow type 'task'; other types return a 403 (paid feature).
 
 The assignee can be given by user_id, by email/name in 'user' (resolved automatically), or omitted when the account has a single user.
 

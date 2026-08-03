@@ -76,4 +76,13 @@ describe("toToolError", () => {
     const msg = toToolError(new RdCrmApiError("bad", 422, '{"error":"name is required"}'));
     expect(msg).toContain("name is required");
   });
+
+  it("surfaces the API message from the errors envelope on 403", () => {
+    // Real free-plan response for extended task types
+    const body =
+      '{"errors":[{"error_type":"ACCESS_DENIED","error_message":"This account is not allowed to create tasks of the type: call","feature":"extended_task_types","access":false}]}';
+    const msg = toToolError(new RdCrmApiError("denied", 403, body));
+    expect(msg).toContain("not allowed to create tasks of the type: call");
+    expect(msg).toContain("plan");
+  });
 });

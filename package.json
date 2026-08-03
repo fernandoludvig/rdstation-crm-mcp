@@ -1,6 +1,7 @@
 {
   "name": "rdstation-crm-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "mcpName": "io.github.fernandoludvig/rdstation-crm-mcp",
   "description": "MCP server for RD Station CRM — manage contacts, deals, tasks and notes from Claude or any MCP client",
   "keywords": [
     "mcp",

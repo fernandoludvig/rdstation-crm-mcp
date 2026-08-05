@@ -1,6 +1,6 @@
 {
   "name": "rdstation-crm-mcp",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "mcpName": "io.github.fernandoludvig/rdstation-crm-mcp",
   "description": "MCP server for RD Station CRM — manage contacts, deals, tasks and notes from Claude or any MCP client",
   "keywords": [
@@ -20,7 +20,8 @@
   },
   "type": "module",
   "bin": {
-    "rdstation-crm-mcp": "dist/index.js"
+    "rdstation-crm-mcp": "dist/index.js",
+    "rdstation-crm-mcp-http": "dist/http.js"
   },
   "main": "dist/index.js",
   "files": [
@@ -34,6 +35,8 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsx src/index.ts",
+    "dev:http": "tsx src/http.ts",
+    "start:http": "node dist/http.js",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",

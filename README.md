@@ -69,6 +69,32 @@ These tools are designed for LLMs, not as a 1:1 API wrapper:
 - **Actionable errors.** A 401 tells you which env var to check; an unknown stage lists every stage in every pipeline.
 - **Aggregation where it counts.** `rdcrm_pipeline_overview` answers the questions humans actually ask ("where are deals stuck?") with a single tool call.
 
+## Remote deployments (Streamable HTTP)
+
+The default (`rdstation-crm-mcp`) runs over stdio for a single local user, with the token read once from `RDSTATION_CRM_TOKEN`. For a team-hosted or registry-listed deployment (e.g. Smithery), run the Streamable HTTP variant instead:
+
+```bash
+npx -y rdstation-crm-mcp-http
+```
+
+This starts an HTTP server (`http://127.0.0.1:8080/mcp` by default) implementing the [MCP Streamable HTTP transport](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http), with proper session lifecycle (`initialize` → `Mcp-Session-Id` → `DELETE` to close).
+
+Because a hosted server can serve more than one user, there's no single implicit token: each session sends its own `Authorization: Bearer <token>` header on `initialize`. A `RDSTATION_CRM_TOKEN` env var still works as a fallback default for a single-tenant self-hosted setup where every caller shares one CRM account.
+
+Env vars:
+
+| Var | Default | Purpose |
+| --- | --- | --- |
+| `PORT` | `8080` | Port to listen on |
+| `HOST` | `127.0.0.1` | Bind address — use `0.0.0.0` for containers/cloud |
+| `ALLOWED_HOSTS` | *(unset)* | Comma-separated Host header allow-list (DNS-rebinding guard); recommended when binding to `0.0.0.0` without a reverse proxy in front |
+| `RDSTATION_CRM_TOKEN` | *(unset)* | Default token used when a session sends no Authorization header |
+
+```bash
+curl http://127.0.0.1:8080/health
+# {"status":"ok","server":"rdstation-crm-mcp","sessions":0}
+```
+
 ## Development
 
 ```bash
@@ -87,7 +113,7 @@ The HTTP layer (`src/client/`) is isolated from the tools, with retry and expone
 
 - [ ] Organizations and products tools
 - [ ] RD Station CRM API v2 support (OAuth) behind the same tool surface
-- [ ] Streamable HTTP transport for remote deployments
+- [x] Streamable HTTP transport for remote deployments
 - [ ] Publish to MCP registries (Glama, PulseMCP, Smithery)
 
 Contributions welcome — open an issue first for anything non-trivial.
